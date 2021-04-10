@@ -1,5 +1,12 @@
 # Writeup "Backup - Alice" (CRYPTO)
 
+# Contents
+
+- [Scenario](#scenario)
+- [Analysis](#analysis)
+- [Common Prime Attack](#common-prime-attack)
+- [Script](#script)
+
 ## Scenario
 
 We have backup of Alice's home directory :
@@ -24,6 +31,7 @@ unzip -p -P$(cat ../password.alice) flag.zip
 Flag is zipped with a password, too lazy to bruteforce it...
 
 Inspect /.ssh/authorized_keys:
+
 ```bash
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDv9fYADdQjY7ETSi+5ODxXmO2cKJRu4zL7s4yGHLMXVykw3P7PkPOYJ18Q0QZ2mt6hacE1Zw12UmibgjENV4GPR0GR+/N/NZ8t0Vti0hV+Rj3OQij0/W4RM+phTSmnA9Kz4j24ZMNnQAMl7MaOSjHRN+1TE4rETTBMpyKylYu01aGbLbzBBCcW+YeZLhAyYF1FoLyXjSEx6ucDFNE+ud8IrQWts4d50tWFHficRzulfsluo/D1RItasDDx6rtZUSAqWmLWw/XuTmvE4gkU1HsGi9jMnFrAV4sy/s+0jWy+GH/8X7Q1bgfxmX9HfGW3qnO/Kc5eFqX6i9RxnGbC/Yzx alice@work
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlPRSh8cN2qd+lAVSf3tQnGy7gSmRiH9k2T3p0tVXD33SCiJaMmfqeIfQNe9sVKXi1E1J4rJ09Bv0Vht8Ti8yUY5B+wOh0JKGIPYMxClROo4a42pv4iDOECfZ77T6pHm5lDoAK5KDXvKy119TtXpl26/1+FYwr87kMjU/ZujAHQDMkx1JGUrQfipYMqV8Sm0ufyvTitP9NWV3fXNt83IAOheYbbI4lYkV/NqUbdW0FtBZiUuE9EZiM0ATLDYN5GIWE5jOCkUP5QBB9/X4w+keHSpxsyNI7/g4sNfFybjdNf7Kx2GmEeIe+xrU3X2xPO1j/px2QMZe0PhhIkbSF/YxL alice@home
@@ -31,7 +39,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlPRSh8cN2qd+lAVSf3tQnGy7gSmRiH9k2T3p0tVXD
 
 Found 2 RSA Public Keys!!
 
-## Analyze
+## Analysis
 
 There are 2 RSA public keys, extract parameters with a python script:
 ```python
@@ -127,19 +135,19 @@ Using inverse formula:
 
 Using Euler's totient formula:
 
-![phi(n)](https://render.githubusercontent.com/render/math?math=%5Cphi%28n%29%20%3D%20%28p%2D1%29%2A%28q%2D1&mode=inline)
+![phi(n)](https://render.githubusercontent.com/render/math?math=%5Cphi%28n%29%20%3D%20%28p%2D1%29%2A%28q%2D1%29&mode=inline)
 
 ### Recalulate second prime numbers
 
 We have all parameters to calculate d parameter and recover private keys:
 
-![d](https://render.githubusercontent.com/render/math?math=d%20%3D%20e%5E%7B%2D1%7D%20mod%20%5Cphi%28n%29&mode=inline)
+![d](https://render.githubusercontent.com/render/math?math=d%20%3D%20e%5E%7B%2D1%7D%20%20mod%20%5Cphi%28n%29&mode=inline)
 
 Knowning p,q,e,d,n is possible to recover private keys.
 
 ## Script
 
-[generate_keys.py](/Midnightsun CTF 2021/Scripts/generate_keys.py)
+[Click here to see file](/Midnightsun%20CTF%202021/Scripts/generate_keys.py)
 
 ```python
 #!/usr/bin/python3
