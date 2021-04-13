@@ -118,7 +118,7 @@ q = 2927856731321429929888216041173449725341305072609561076115470847992641283778
 phi = (p-1)*(q-1)
 
 # Calulate private key parameter
-d = pow(65537,-1,(phi))
+d = pow(e,-1,phi)
 
 # Build Private Key
 private_key = RSA.construct((n, e, d))
@@ -132,7 +132,7 @@ f.close()
 ### Run Script
 
 ```bash
-$ python2 generatekeys.py
+$ python3 generatekeys.py
 $ ssh -i mykeyb.pem -p2222 bob@backup-01.play.midnightsunctf.se
 midnight{Turn_electricity_t0_h347}
 ```
