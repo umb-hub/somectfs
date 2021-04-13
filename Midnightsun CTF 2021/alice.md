@@ -169,7 +169,7 @@ r = n2 // p
 phi = (p-1)*(q-1)
 
 # Calulate private key parameter
-d = pow(65537,-1,(phi))
+d = pow(e,-1,phi)
 
 # Build Private Key
 private_key = RSA.construct((n1, e, d))
@@ -183,7 +183,7 @@ f.close()
 ### Run Script
 
 ```bash
-$ python2 generatekeys.py
+$ python3 generatekeys.py
 $ ssh -i mykey1.pem -p2222 alice@backup-01.play.midnightsunctf.se
 midnight{factorization_for_the_Win}
 ```
